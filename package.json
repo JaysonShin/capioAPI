@@ -1,0 +1,14 @@
+{
+  "name": "CapioClient",
+  "version": "0.0.1",
+  "description": "CapioClient",
+  "main": "app.js",
+  "author": {
+    "name": "Yuri de Souza",
+    "email": "yuri@capio.ai"
+  },
+  "dependencies": {
+    "commander": "^2.3.0",
+    "socket.io-client": "^1.2.0"
+  }
+}
