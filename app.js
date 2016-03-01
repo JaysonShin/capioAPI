@@ -36,12 +36,11 @@ program.args.forEach(function (audioPath) {
     process.exit(-1);
   }
 });
-// -- Audio file validation --
 
 if (!program.packetSize)
   program.packetSize = 2048;
 
-
+// Put parameters into one object
 var requestContext = {
   'apiKey': program.apiKey,
   'clientType': 'NodeJS',
@@ -52,7 +51,7 @@ var requestContext = {
 if (!!program.userId)
   requestContext['userID'] = program.userId;
 
-// Default to false
+// Set autostop (default is false)
 requestContext['autostop'] = program.setAutoStop == 'true';
 
 if (!!program.wordTimestamps)
@@ -61,6 +60,8 @@ if (!!program.wordTimestamps)
 if (!!program.wordConfidence)
   requestContext['word_confidence'] = program.wordConfidence;
 
+
+// -- Connect to the server --
 var socket = io.connect(program.endpoint, { transports: ['websocket'] });
 
 socket.on('connect_error', function (data) {
@@ -69,20 +70,26 @@ socket.on('connect_error', function (data) {
   process.exit(-1);
 });
 
+// -- Send context and audio data upon connection--
 socket.on('connect', function () {
   socket.send({
 	  context: JSON.stringify(requestContext)
   }, function () {
+    // Upon success, read audio file and send it as chunks
     var data = fs.readFileSync(program.args[0]);
 
     for (var i = 0; i < data.length; i += program.packetSize) {
       chunk = data.slice(i, i + program.packetSize);
+      // Send a chunk as a JSON
       socket.send({ audio: chunk });
     }
-    socket.send({ disconnect: true })
+
+    // After sending all the chunks, disconnect from the server
+    socket.send({ disconnect: true });
   });
 });
 
+// -- Log responses --
 socket.on('message', function (data) {
   if (program.prettyPrint)
     console.log(JSON.stringify(JSON.parse(data), null, 2));
@@ -90,6 +97,7 @@ socket.on('message', function (data) {
     console.log(data);
 });
 
+// Exit after disconnecting
 socket.on('disconnect', function () {
   process.exit(0);
 });
