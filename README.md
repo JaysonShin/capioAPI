@@ -1,16 +1,12 @@
 # Capio ASR Client
 
-Capio ASR Clients provide an easy access to interact with the  **Capio ASR Service**. WebSocket protocol is used to stream audio files to the ASR Service and return the transcribed text.
+Capio ASR Clients provide an easy access to interact with the  **Capio ASR Service**. WebSocket protocol is used to stream audio files to the ASR Service and return the transcribed text. To find the details, please go to [the documentation of the API](https://capio.readme.io/docs/transcription-streaming-api).
 
 ### Platform optimized clients
-- Ubuntu: ```capio-client-ubuntu```
-- Mac OSX: ```capio-client-osx```
+- Ubuntu: ```bin/capio-client-ubuntu```
+- Mac OSX: ```bin/capio-client-osx```
 
-### Usage
-```
-$ ./capio-client-*
-```
-#### Example
+### Example usage
 ```
 $ ./capio-client-osx -a <api-key> test-audio.wav
 {  
@@ -39,32 +35,40 @@ $ ./capio-client-osx -a <api-key> test-audio.wav
 	Display client version information
 - **-a, --apikey [string]**
 
-	Capio authorized API Key authorized
+	Pass API Key for the Capio Speech Service (required)
 - **-e, --endpoint [url]**
 
-	URI endpoint for the Capio Speech Service
+	Select URI endpoint for the Capio Speech Service
 
 	Default: ```ws://api.capio.ai```
 - **-s, --set-auto-stop**
 
 	 Auto utterance-end detection
 
-	 Default: ```false``
+	 Default: ```false```
 - **-t, --word-timestamps**
 
-	 Return word-level timestamps
+	 Request word-level timestamps in results
 
 	 Default: ```false```
 - **-w, --word-confidence**
 
-	 Return word-level confidence scores
+	 Request word-level confidence scores in results
 
 	 Default: ```false```	 
 - **-p, --enable-partial**
 
-	Send partial responses received from the service in real-time.
+	Request partial responses from the service in real-time.
 
-	Default: ```true```
+	Default: ```false```
 - **-u, --userid [string]**
 
 	Optional User ID to associate with the request. Email ID can be used here.
+
+### Audio file specifications
+The API accepts an audio file that satisfies the following:
+- File Type: WAV (RIFF)
+- Channels: 1
+- Sample Rate: 16000
+- Precision: 16-bit
+- Sample Encoding: 16-bits signed Integer PCM
