@@ -1,4 +1,4 @@
 enclose_license
 node_modules
 *.log
-bin/capio-client-windows.exe
+bin/
