@@ -1,15 +1,44 @@
 # Capio ASR Client
 
-Capio's Automatic Speech Recognition (ASR) Clients provide an easy access to interact with the  **Capio ASR engine**, hosted on Capio's STaaS (Speech Team as a Service) platform. WebSocket protocol is used to stream audio files to the ASR engine and return the transcribed text. To find the details of consuming ASR engine, please go to [the documentation of the API](https://capio.readme.io/docs/transcription-streaming-api).
+Capio's Automatic Speech Recognition (ASR) Clients provide an easy access to interact with the  **Capio ASR engine**, hosted on Capio's STaaS (Speech Team as a Service) platform. WebSocket protocol is used to stream audio files to the ASR engine and return the transcribed text. To find the details of consuming ASR engine, please refer to [the documentation of the API](https://capio.readme.io/docs/transcription-streaming-api).
 
 ### Platform optimized clients
-Binaries of platform optimized clients are available on [releases](https://github.com/capioai/NodeJS.transcription.client/releases) section. Go to the page and download one of the following.
-- Ubuntu: ```capio-client-ubuntu```
-- Mac OSX: ```capio-client-osx```
+Binaries of platform optimized clients are available on [releases](https://github.com/capioai/NodeJS.transcription.client/releases) section. Download one of the following. If either binary does not work on your environment, try running the Node JS app as explained [below](#NodeJS).
+- Ubuntu: ```capio-client-ubuntu``` (tested on 14.04.4 and 14.04.3 LTS)
+- Mac OSX: ```capio-client-osx``` (tested on OS 10.11.3)
 
 ### Example usage
+
+#### Binary
+
 ```JSON
-$ node app.js -a <api-key> test-audio.wav
+$ ./capio-client-osx --apikey <api-key> test-audio.wav
+{  
+  "result":[  
+    {  
+      "alternative":[  
+        {  
+          "confidence":1,
+          "transcript":"how do i get a passport"
+        }
+      ],
+      "final":true
+    }
+  ],
+  "result_index":0,
+  "transactionID":"c62313da04214af69f9981a714c84267"
+}
+```
+
+
+#### <a name="NodeJS"></a>NodeJS
+If you do not have an environment to run NodeJS, please install [NodeJS](https://nodejs.org/en/) first. Then install the modules by
+```
+$ npm install
+```
+After the dependencies are installed, run the app by the following command.
+```JSON
+$ node app.js -apikey <api-key> test-audio.wav
 {  
   "result":[  
     {  
@@ -34,7 +63,7 @@ $ node app.js -a <api-key> test-audio.wav
 - **-V, --version**
 
 	Display client version information
-- **-a, --apikey [string]**
+- **-a, --api-key [string]**
 
 	Pass API Key for the Capio Speech Service (required)
 - **-e, --endpoint [url]**
