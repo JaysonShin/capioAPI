@@ -5,7 +5,7 @@ var program = require('commander'),
 program.version("0.0.4")
   .usage('[options] <wav_files ...>')
   .option('-a, --api-key <String>', 'API Key (required)')
-  .option('-e, --endpoint <URL>', 'WebSocket endpoint (default: ws://api.capio.ai)')
+  .option('-e, --endpoint <URL>', 'WebSocket endpoint (default: wss://api.capio.ai)')
   .option('-z, --packet-size <Bytes>', 'Packet Size (default: 2048)', parseInt)
   .option('-u, --user-id <String>', 'User ID (email)')
   .option('-s, --set-auto-stop <Boolean>', 'Enable autostop (default: false)')
