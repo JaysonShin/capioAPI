@@ -23,7 +23,7 @@ if (!program.apiKey) {
 
 // Check API Endpoint
 if (!program.endpoint)
-  program.endpoint = 'ws://api.capio.ai';
+  program.endpoint = 'wss://api.capio.ai';
 
 // -- Audio file validation --
 if (!program.args.length) {
