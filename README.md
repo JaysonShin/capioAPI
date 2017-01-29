@@ -38,7 +38,7 @@ $ npm install
 ```
 After the dependencies are installed, run the app by the following command.
 ```JSON
-$ node app.js -apikey <api-key> test-audio.wav
+$ node app.js -a <api-key> test-audio.wav
 {  
   "result":[  
     {  
